@@ -11,6 +11,9 @@ export default defineConfig({
       name: packageJson.name,
       fileName: "index",
     },
+    rollupOptions: {
+      external: ["react", "rxjs"],
+    },
   },
   plugins: [
     typescript({
