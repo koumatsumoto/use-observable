@@ -1,3 +1,1 @@
-export function main() {
-  // implement module
-}
+export { useObservable } from "./use-observable";
