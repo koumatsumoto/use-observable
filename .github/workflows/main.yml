@@ -60,13 +60,12 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ runner.arch }}-
           fail-on-cache-miss: true
 
-      - name: Trim v of version string
-        run: |
-          TAG=${{ github.ref_name }}
-          echo "version=${TAG#v}" >> $GITHUB_OUTPUT
-        id: get_version_string
+      - uses: koumatsumoto/validate-semver-action@v1
+        id: validate_version
+        with:
+          value: ${{ github.ref_name }}
 
       - uses: koumatsumoto/publish-github-packages-npm@v1
         with:
           auth_token: ${{ secrets.GITHUB_TOKEN }}
-          version: ${{ steps.get_version_string.outputs.version }}
+          version: ${{ steps.validate_version.outputs.version }}
